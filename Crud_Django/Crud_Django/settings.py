@@ -1,8 +1,16 @@
 from pathlib import Path
 import os
 import dj_database_url
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Crud_Django.settings')
+
+application = get_wsgi_application()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+WSGI_APPLICATION = 'Crud_Django.wsgi.application'
 
 
 # Quick-start development settings - unsuitable for production
@@ -114,8 +122,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 LOGIN_URL = '/signin'
 
 # Default primary key field type
