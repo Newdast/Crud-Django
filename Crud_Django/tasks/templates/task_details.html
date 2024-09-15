@@ -1,0 +1,51 @@
+{% extends "layuots/base.html" %}
+
+{% block content %}
+    <main class="container">
+        <div class="colo-md-6-offset-md-3">
+            <hr>
+            <h1 class="text-center">{{task.title}}</h1>
+            <hr>
+            <form method='POST'>
+                {% csrf_token %}
+                <h4>Data modification</h4>
+                {% if confirm_update %}
+                    <strong>{{confirm_update}}</strong>
+                {% endif %}
+                <strong class="text-danger">{{error}}</strong>
+                {{form.as_p}}
+                <button class="btn btn-success">
+                    Update
+                </button>
+            </form>
+            <hr>
+            {% if task.datecompleted %}
+                <form action={% url 'task_no_completed' task.id %} method='POST'>
+                    {% csrf_token %}
+                    <h4>Mark as incompleted task</h4>
+                    <button class="btn btn-primary">
+                        Not Completed
+                    </button>
+                </form>
+            {% else %}
+                <form action={% url 'task_complete' task.id %} method='POST'>
+                    {% csrf_token %}
+                    <h4>Mark as completed task</h4>
+                    <button class="btn btn-primary">
+                        Completed
+                    </button>
+                </form>
+            {% endif %}
+            <hr>
+            <form action={% url 'task_delete' task.id %} method='POST'>
+                {% csrf_token %}
+                <h4>Delate task</h4>
+                <button class="btn btn-danger">
+                    Delete
+                </button>
+                <hr>
+            </form>
+        </div>
+    </main>
+{% endblock  %}
+

@@ -1,0 +1,58 @@
+{% extends "layuots/base.html" %}
+
+
+{% block content %}
+    <main class="container">
+        <div class="row">
+            <div class="colo-md-6-offset-md-3">
+                <hr>
+                <h1 class="text-end">
+                    <a href="/tasks/create" class="btn btn-primary">Create new task</a>
+                </h1>
+                <hr>
+                <h1 class="text-center display-3 py-3">TASKS Pending</h1>
+                <hr>
+                {% if tasks %}
+                    <ul class="list-group">
+                        {% for task  in tasks %}
+                                <a class="list-group-item" href="{% url 'tasks_detail' task.id %}">
+                                    <header class="d-flex justify-content-between">
+                                        {% if task.important %}
+                                            <h3 class="fw-blod text-success">{{task.title}} [Importante]</h3>
+                                        {% else %}
+                                            <h3 class="fw-blod ">{{task.title}}</h3>
+                                        {% endif %}
+                                    </header>
+                                </a>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h3 class="text-center">There are no existing tasks to view</h3>
+                {% endif %}
+                <hr>
+                <h1 class="text-center display-3 py-3" >TASKS Complete</h1>
+                <hr>
+                {% if task_completed %}
+                    <ul class="list-group">
+                        {% for task  in task_completed %}
+                                <a class="list-group-item" href="{% url 'tasks_detail' task.id %}">
+                                    <header class="d-flex justify-content-between">
+                                        {% if task.important %}
+                                        <h3 class="fw-blod text-success">{{task.title}} [Importante]</h3>
+                                        <h5>{{task.datecompleted|date:'M j Y'}}</h5>
+                                        {% else %}
+                                            <h3 class="fw-blod">{{task.title}}</h3>
+                                            <h5>{{task.datecompleted|date:'M j Y'}}</h5>
+                                        {% endif %}
+                                    </header>
+                                </a>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h3 class="text-center">There are no existing tasks to view</h3>
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+    </main>
+{% endblock  %}
